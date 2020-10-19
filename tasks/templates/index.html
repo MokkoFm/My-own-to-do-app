@@ -21,7 +21,7 @@
 		background-color: #6BA3E8;
 	}
 
-	.center-column{
+	.todo-list{
 		width:600px;
 		margin: 20px auto;
 		padding:20px;
@@ -47,7 +47,9 @@
 
 </style>
 
-<div class="center-column">
+<div class="d-flex justify-content-center">
+
+    <div class="todo-list">
 
     <form method="POST" action="/">
         <h2>Python tasks</h2>
@@ -55,8 +57,6 @@
 		{{form.title}}
 		<input class="btn btn-info" type="submit" name="Create Task">
 	</form>
-
-	<div class="todo-list">
 
 	{% for task in tasks %}
 		<div class="item-row">
@@ -70,5 +70,49 @@
 			{% endif %}
 		</div>
 	{% endfor %}
-	</div>
+    </div>
+    <div class="todo-list">
+
+        <form method="POST" action="/">
+            <h2>Django tasks</h2>
+            {% csrf_token %}
+            {{form.title}}
+            <input class="btn btn-info" type="submit" name="Create Task">
+        </form>
+    
+        {% for task in tasks %}
+            <div class="item-row">
+                <a class="btn btn-sm btn-info" href="{% url 'update_task' task.id %}">Update</a>
+                <a class="btn btn-sm btn-danger" href="{% url 'delete_task' task.id %}">Delete</a>
+    
+                {% if task.complete %}
+                <strike>{{task}}</strike>
+                {% else %}
+                <span>{{task}}</span>
+                {% endif %}
+            </div>
+        {% endfor %}
+        </div>
+        <div class="todo-list">
+
+            <form method="POST" action="/">
+                <h2>Psychology tasks</h2>
+                {% csrf_token %}
+                {{form.title}}
+                <input class="btn btn-info" type="submit" name="Create Task">
+            </form>
+        
+            {% for task in tasks %}
+                <div class="item-row">
+                    <a class="btn btn-sm btn-info" href="{% url 'update_task' task.id %}">Update</a>
+                    <a class="btn btn-sm btn-danger" href="{% url 'delete_task' task.id %}">Delete</a>
+        
+                    {% if task.complete %}
+                    <strike>{{task}}</strike>
+                    {% else %}
+                    <span>{{task}}</span>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            </div>
 </div>
